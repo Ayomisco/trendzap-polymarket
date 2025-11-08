@@ -23,16 +23,17 @@ export default function TopNavbar({ walletAddress, onNavigate, currentPage }: To
 
   return (
     <>
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md border-b border-border">
-        <div className="px-4 md:px-8 py-4 flex items-center justify-between">
+      {/* Desktop Navbar */}
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md border-b border-border hidden md:block">
+        <div className="px-6 md:px-8 py-4 flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition">
             <Zap className="w-6 h-6 text-primary" />
-            <span className="text-lg md:text-xl font-bold gradient-text hidden sm:inline">TrendZap</span>
+            <span className="text-xl font-bold gradient-text">TrendZap</span>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="flex items-center gap-8">
             {navItems.map((item) => (
               <button
                 key={item.id}
@@ -46,43 +47,33 @@ export default function TopNavbar({ walletAddress, onNavigate, currentPage }: To
             ))}
           </div>
 
-          {/* Right Section - Notifications & Profile */}
+          {/* Right Section */}
           <div className="flex items-center gap-4">
-            {/* Notifications */}
-            <button className="relative p-2 hover:bg-card rounded-lg transition group">
-              <Bell className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
+            <button className="relative p-2 hover:bg-card rounded-lg transition">
+              <Bell className="w-5 h-5 text-muted-foreground hover:text-foreground" />
               <span className="absolute top-1 right-1 w-2 h-2 bg-accent rounded-full" />
             </button>
 
-            {/* Profile Dropdown */}
             <div className="relative">
               <button
                 onClick={() => setProfileDropdownOpen(!profileDropdownOpen)}
-                className="hidden sm:flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-card transition"
+                className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-card transition"
               >
-                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-xs font-bold text-primary-foreground">
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-xs font-bold text-white">
                   {walletAddress.slice(2, 4).toUpperCase()}
                 </div>
               </button>
 
-              {/* Dropdown Menu */}
               {profileDropdownOpen && (
                 <div className="absolute right-0 mt-2 w-56 glassmorphic rounded-lg py-2 space-y-1 animate-in fade-in slide-in-from-top-2 duration-200">
                   <div className="px-4 py-2 border-b border-border">
                     <p className="text-xs text-muted-foreground">Connected Wallet</p>
                     <p className="font-mono text-xs break-all mt-1">{walletAddress}</p>
                   </div>
-
-                  <button className="w-full flex items-center gap-2 px-4 py-2 text-sm hover:bg-card/50 transition text-left">
-                    <span className="w-2 h-2 rounded-full bg-accent" />
-                    Profile
-                  </button>
-
                   <button className="w-full flex items-center gap-2 px-4 py-2 text-sm hover:bg-card/50 transition text-left">
                     <span className="w-2 h-2 rounded-full bg-accent" />
                     Settings
                   </button>
-
                   <div className="border-t border-border pt-1">
                     <button className="w-full flex items-center gap-2 px-4 py-2 text-sm text-destructive hover:bg-destructive/10 transition text-left">
                       <LogOut className="w-4 h-4" />
@@ -92,15 +83,26 @@ export default function TopNavbar({ walletAddress, onNavigate, currentPage }: To
                 </div>
               )}
             </div>
-
-            {/* Mobile Menu Toggle */}
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 hover:bg-card rounded-lg transition"
-            >
-              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-            </button>
           </div>
+        </div>
+      </nav>
+
+      {/* Mobile Navbar */}
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md border-b border-border md:hidden">
+        <div className="px-4 py-4 flex items-center justify-between">
+          {/* Logo */}
+          <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition">
+            <Zap className="w-6 h-6 text-primary" />
+            <span className="text-lg md:text-xl font-bold gradient-text hidden sm:inline">TrendZap</span>
+          </Link>
+
+          {/* Mobile Menu Toggle */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="p-2 hover:bg-card rounded-lg transition"
+          >
+            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
         </div>
 
         {/* Mobile Menu */}

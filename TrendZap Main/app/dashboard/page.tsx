@@ -3,33 +3,32 @@
 import { useState } from "react"
 import DashboardLayout from "@/components/dashboard-layout"
 import DashboardHome from "@/components/dashboard-home"
-import MarketsPage from "@/components/markets-page"
+import MarketsExplorer from "@/components/markets-explorer"
 import PortfolioPage from "@/components/portfolio-page"
 import LeaderboardPage from "@/components/leaderboard-page"
+import DashboardStats from "@/components/dashboard-stats"
 
 type PageType = "home" | "markets" | "portfolio" | "leaderboard"
 
 export default function Dashboard() {
-  const [currentPage, setCurrentPage] = useState<PageType>("home")
-  const [walletConnected, setWalletConnected] = useState(false)
-  const [walletAddress, setWalletAddress] = useState("")
+  const [currentPage, setCurrentPage] = useState<PageType>("markets")
+  const [walletConnected, setWalletConnected] = useState(true)
+  const walletAddress = "0x742d35Cc6634C0532925a3b844Bc9e7595f42e3e"
 
-  const handleConnectWallet = async () => {
-    // Simulate wallet connection
-    setWalletConnected(true)
-    setWalletAddress("0x742d35Cc6634C0532925a3b844Bc9e7595f42e3e")
-  }
-
-  if (!walletConnected) {
-    return <WalletConnectScreen onConnect={handleConnectWallet} />
+  const handleNavigate = (page: PageType) => {
+    setCurrentPage(page)
   }
 
   return (
-    <DashboardLayout onNavigate={setCurrentPage} walletAddress={walletAddress} currentPage={currentPage}>
-      {currentPage === "home" && <DashboardHome />}
-      {currentPage === "markets" && <MarketsPage />}
-      {currentPage === "portfolio" && <PortfolioPage />}
-      {currentPage === "leaderboard" && <LeaderboardPage />}
+    <DashboardLayout onNavigate={handleNavigate} walletAddress={walletAddress} currentPage={currentPage}>
+      <div className="space-y-8">
+        <DashboardStats totalValueLocked="$24,789.36" marketCount={329} winnersCount={800} currentTab={currentPage} />
+
+        {currentPage === "home" && <DashboardHome />}
+        {currentPage === "markets" && <MarketsExplorer />}
+        {currentPage === "portfolio" && <PortfolioPage />}
+        {currentPage === "leaderboard" && <LeaderboardPage />}
+      </div>
     </DashboardLayout>
   )
 }
