@@ -13,7 +13,7 @@ interface MarketCardProps {
   volume: string
   comments: number
   metric: string
-  socialLink: string
+  socialLink?: string
 }
 
 export function MarketCard({
@@ -64,15 +64,17 @@ export function MarketCard({
             </div>
           </div>
 
-          {/* External Link Button */}
-          <Link href={socialLink} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()}>
-            <button
-              onClick={(e) => e.stopPropagation()}
-              className="absolute top-3 left-3 p-2 rounded-full bg-black/50 hover:bg-black/70 transition"
-            >
-              <ExternalLink className="w-4 h-4 text-white" />
-            </button>
-          </Link>
+          {/* External Link Button (render only when socialLink is provided) */}
+          {socialLink ? (
+            <Link href={socialLink} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()}>
+              <button
+                onClick={(e) => e.stopPropagation()}
+                className="absolute top-3 left-3 p-2 rounded-full bg-black/50 hover:bg-black/70 transition"
+              >
+                <ExternalLink className="w-4 h-4 text-white" />
+              </button>
+            </Link>
+          ) : null}
         </div>
 
         {/* Content Section */}

@@ -1,0 +1,33 @@
+
+> my-v0-project@0.1.0 build /Users/ayomisco/Documents/Main/Builds/TrendZap/TrendZap-Polygon/TrendZap Main
+> next build
+
+   ▲ Next.js 16.0.0 (Turbopack)
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 7.5s
+   Skipping validation of types
+   Collecting page data ...
+   Generating static pages (0/9) ...
+   Generating static pages (2/9) 
+   Generating static pages (4/9) 
+   Generating static pages (6/9) 
+ ✓ Generating static pages (9/9) in 1282.3ms
+   Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ƒ /dashboard
+├ ○ /dashboard/create
+├ ○ /dashboard/leaderboard
+├ ƒ /dashboard/market/[id]
+├ ○ /dashboard/markets
+├ ○ /dashboard/portfolio
+├ ○ /dashboard/profile
+└ ○ /dashboard/settings
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
