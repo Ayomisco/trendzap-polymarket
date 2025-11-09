@@ -1,11 +1,50 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import { ArrowRight, TrendingUp, Zap, Target, Wallet, BarChart3 } from "lucide-react"
 
 export default function LandingPage() {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null)
+  const [showWaitlist, setShowWaitlist] = useState(false)
+  const [name, setName] = useState("")
+  const [email, setEmail] = useState("")
+  const [platformInterest, setPlatformInterest] = useState("")
+  const [statusMsg, setStatusMsg] = useState<string | null>(null)
+  const [submitting, setSubmitting] = useState(false)
+
+  useEffect(() => {
+    const open = () => setShowWaitlist(true)
+    window?.addEventListener?.("open-waitlist", open as EventListener)
+    return () => window?.removeEventListener?.("open-waitlist", open as EventListener)
+  }, [])
+
+  async function submitWaitlist(e: React.FormEvent) {
+    e.preventDefault()
+    setSubmitting(true)
+    setStatusMsg(null)
+    try {
+      const res = await fetch("/api/waitlist", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: name || null, email, platform: platformInterest || null, createdAt: new Date().toISOString() }),
+      })
+      if (res.ok) {
+        setStatusMsg("Thanks — you’re on the waitlist!")
+        setName("")
+        setEmail("")
+        setPlatformInterest("")
+        setTimeout(() => setShowWaitlist(false), 1200)
+      } else {
+        const body = await res.json().catch(() => ({}))
+        setStatusMsg(body?.error || "Submission failed — try again.")
+      }
+    } catch (err) {
+      setStatusMsg("Network error — please try again.")
+    } finally {
+      setSubmitting(false)
+    }
+  }
 
   return (
     <div className="min-h-screen bg-background overflow-hidden">
@@ -32,17 +71,14 @@ export default function LandingPage() {
             ))}
           </div>
 
-          {/* Auth Buttons */}
+          {/* Auth / Waitlist CTA */}
           <div className="flex items-center gap-3">
-            <button className="px-4 py-2 text-sm font-medium text-foreground/70 hover:text-foreground transition hidden sm:block">
-              Login
-            </button>
-            <Link
-              href="/dashboard"
+            <button
+              onClick={() => window?.dispatchEvent(new CustomEvent('open-waitlist'))}
               className="px-6 py-2.5 bg-gradient-to-r from-primary to-secondary text-white font-semibold rounded-full hover:shadow-lg hover:shadow-primary/50 transition text-sm"
             >
-              Connect Wallet
-            </Link>
+              Join Waitlist
+            </button>
           </div>
         </div>
       </nav>
@@ -75,12 +111,12 @@ export default function LandingPage() {
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-              <Link
-                href="/dashboard"
+              <button
+                onClick={() => window?.dispatchEvent(new CustomEvent('open-waitlist'))}
                 className="px-8 py-3.5 bg-gradient-to-r from-primary to-secondary text-white font-semibold rounded-full hover:shadow-2xl hover:shadow-primary/40 transition flex items-center justify-center gap-2 group"
               >
-                Start Predicting <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition" />
-              </Link>
+                Join Waitlist <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition" />
+              </button>
               <button className="px-8 py-3.5 border border-white/10 text-foreground rounded-full font-semibold hover:bg-white/5 transition">
                 Learn More
               </button>
@@ -244,18 +280,18 @@ export default function LandingPage() {
 
           {/* CTA Button */}
           <div className="mt-12 text-center">
-            <Link
-              href="/dashboard"
+            <button
+              onClick={() => window?.dispatchEvent(new CustomEvent('open-waitlist'))}
               className="inline-block px-8 py-3.5 bg-gradient-to-r from-primary to-secondary text-white font-semibold rounded-full hover:shadow-2xl hover:shadow-primary/40 transition"
             >
-              Try Prediction Markets Today
-            </Link>
+              Join Waitlist
+            </button>
           </div>
         </div>
       </section>
 
       {/* Stats Section */}
-      <section className="py-16 md:py-20 px-4 border-t border-white/5">
+      {/* <section className="py-16 md:py-20 px-4 border-t border-white/5">
         <div className="container mx-auto max-w-4xl">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {[
@@ -271,7 +307,7 @@ export default function LandingPage() {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Final CTA Section */}
       <section className="py-20 md:py-28 px-4 border-t border-white/5">
@@ -282,21 +318,75 @@ export default function LandingPage() {
               Join thousands of predictors earning tokens by forecasting the next viral moment. No experience needed.
             </p>
           </div>
-          <Link
-            href="/dashboard"
+          <button
+            onClick={() => window?.dispatchEvent(new CustomEvent('open-waitlist'))}
             className="inline-block px-8 py-3.5 bg-gradient-to-r from-primary to-secondary text-white font-semibold rounded-full hover:shadow-2xl hover:shadow-primary/40 transition"
           >
-            Connect Wallet & Start Now
-          </Link>
+            Join Waitlist
+          </button>
         </div>
       </section>
 
       {/* Footer */}
       <footer className="py-8 px-4 border-t border-white/5 bg-white/2">
         <div className="container mx-auto text-center text-foreground/50 text-sm">
-          <p>© 2025 TrendZap. Predicting the future of social media. Built on Polygon.</p>
+          <p>© 2025 TrendZap. Predicting the future of social media. Built on Polymarket.</p>
         </div>
       </footer>
+      {/* Waitlist Modal */}
+      {showWaitlist && (
+        <div className="fixed inset-0 z-60 flex items-center justify-center">
+          <div className="absolute inset-0 bg-black/60" onClick={() => setShowWaitlist(false)} />
+          <div className="relative z-10 w-full max-w-md bg-background/95 border border-white/10 rounded-2xl p-6">
+            <h3 className="text-xl font-bold mb-2">Join the TrendZap Waitlist</h3>
+            <p className="text-sm text-foreground/70 mb-4">Enter your details and we’ll notify you when we launch.</p>
+            <form onSubmit={submitWaitlist} className="space-y-3">
+              <div>
+                <label className="text-sm text-foreground/70">Name (optional)</label>
+                <input
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className="mt-1 w-full px-3 py-2 bg-white/3 border border-white/10 rounded-md outline-none"
+                />
+              </div>
+              <div>
+                <label className="text-sm text-foreground/70">Email</label>
+                <input
+                  type="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="mt-1 w-full px-3 py-2 bg-white/3 border border-white/10 rounded-md outline-none"
+                />
+              </div>
+              <div>
+                <label className="text-sm text-foreground/70">Platform interest (optional)</label>
+                <input
+                  type="text"
+                  value={platformInterest}
+                  onChange={(e) => setPlatformInterest(e.target.value)}
+                  placeholder="e.g. YouTube, TikTok"
+                  className="mt-1 w-full px-3 py-2 bg-white/3 border border-white/10 rounded-md outline-none"
+                />
+              </div>
+              <div className="flex items-center justify-between pt-2">
+                <button
+                  type="submit"
+                  disabled={submitting}
+                  className="px-4 py-2 bg-gradient-to-r from-primary to-secondary text-white font-semibold rounded-md"
+                >
+                  {submitting ? "Submitting..." : "Join Waitlist"}
+                </button>
+                <button type="button" onClick={() => setShowWaitlist(false)} className="text-sm text-foreground/60">
+                  Cancel
+                </button>
+              </div>
+              {statusMsg && <p className="text-sm text-foreground/70 mt-2">{statusMsg}</p>}
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
