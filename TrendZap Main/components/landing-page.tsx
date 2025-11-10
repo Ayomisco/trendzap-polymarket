@@ -279,14 +279,14 @@ export default function LandingPage() {
           </div>
 
           {/* CTA Button */}
-          <div className="mt-12 text-center">
+          {/* <div className="mt-12 text-center">
             <button
               onClick={() => window?.dispatchEvent(new CustomEvent('open-waitlist'))}
               className="inline-block px-8 py-3.5 bg-gradient-to-r from-primary to-secondary text-white font-semibold rounded-full hover:shadow-2xl hover:shadow-primary/40 transition"
             >
               Join Waitlist
             </button>
-          </div>
+          </div> */}
         </div>
       </section>
 
@@ -318,12 +318,46 @@ export default function LandingPage() {
               Join thousands of predictors earning tokens by forecasting the next viral moment. No experience needed.
             </p>
           </div>
-          <button
-            onClick={() => window?.dispatchEvent(new CustomEvent('open-waitlist'))}
-            className="inline-block px-8 py-3.5 bg-gradient-to-r from-primary to-secondary text-white font-semibold rounded-full hover:shadow-2xl hover:shadow-primary/40 transition"
-          >
-            Join Waitlist
-          </button>
+          <div className="flex items-center justify-center gap-6">
+            {/* Discord */}
+            <a
+              href="https://discord.gg/your-invite"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Discord"
+              className="w-12 h-12 flex items-center justify-center rounded-full bg-white/5 hover:bg-white/10 transition"
+            >
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" className="text-[#5865F2]">
+                <path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.844-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.0371A19.7363 19.7363 0 003.683 4.3698.0699.0699 0 003.15 5.11c.0012.0018.012.0183.0317.0411a13.0914 13.0914 0 00-.1934 2.4687c0 4.1926 2.6688 8.0477 6.0428 9.1236a.0824.0824 0 00.0893-.0276c.465-.6393.8731-1.3162 1.21-2.0247a.076.076 0 00-.0416-.1057c-.652-.2476-1.27-.5495-1.84-.8923a.0743.0743 0 01-.0076-.1255c.1238-.0943.2473-.1923.3658-.2914a.0734.0734 0 01.0776-.0105c3.796 1.7343 8.28 1.7343 12.0614 0a.0734.0734 0 01.0786.0095c.1185.099.242.1971.366.2914a.0743.0743 0 01-.0066.1255c-.569.3428-1.187.6447-1.839.8923a.076.076 0 00-.0407.1067c.342.7085.7502 1.3854 1.2142 2.0247a.082.082 0 00.0893.0286c3.374-1.0759 6.0428-4.931 6.0428-9.1236 0-.829-.1475-1.6438-.4328-2.4128a.0614.0614 0 00-.03-.0392zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.419 2.157-2.419 1.2108 0 2.178.1 2.1569 2.419 0 1.3333-.9556 2.419-2.1569 2.419zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.419 2.1569-2.419 1.2108 0 2.178.1 2.1569 2.419 0 1.3333-.9461 2.419-2.1569 2.419z" />
+              </svg>
+            </a>
+
+            {/* X (Twitter) */}
+            <a
+              href="https://x.com/yourhandle"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="X"
+              className="w-12 h-12 flex items-center justify-center rounded-full bg-white/5 hover:bg-white/10 transition"
+            >
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" className="text-white">
+                <path d="M22.162 5.656c-.64.284-1.328.476-2.048.562.736-.44 1.3-1.136 1.568-1.968-.688.408-1.448.704-2.256.864C18.94 4.208 17.64 3.75 16.24 3.75c-1.888 0-3.416 1.616-3.416 3.608 0 .28.032.556.092.82-2.84-.136-5.36-1.536-7.048-3.656-.296.48-.468 1.036-.468 1.632 0 1.128.592 2.12 1.492 2.704-.56-.016-1.088-.176-1.552-.432v.048c0 1.552 1.08 2.856 2.512 3.152-.48.128-1.0.168-1.52.064.428 1.36 1.664 2.36 3.132 2.392-1.176.92-2.656 1.472-4.264 1.472-.276 0-.548-.016-.816-.048 1.516.976 3.32 1.544 5.256 1.544 6.312 0 9.776-5.544 9.776-10.336v-.472c.68-.496 1.2-1.12 1.64-1.824-.596.264-1.232.44-1.896.52z" />
+              </svg>
+            </a>
+
+            {/* Telegram */}
+            <a
+              href="https://t.me/yourchannel"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Telegram"
+              className="w-12 h-12 flex items-center justify-center rounded-full bg-white/5 hover:bg-white/10 transition"
+            >
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" className="text-[#2AABEE]">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.47 7.2l-1.88 8.84c-.14.66-.5.82-.99.52l-2.74-2.02-1.32 1.27c-.15.15-.28.28-.57.28l.2-2.85 5.18-4.68c.23-.2-.05-.31-.36-.11l-6.4 4.03-2.76-.86c-.6-.2-.61-.6.12-.89L15.3 7.6c.52-.2.98.12.88.6z" />
+              </svg>
+            </a>
+          </div>
         </div>
       </section>
 
