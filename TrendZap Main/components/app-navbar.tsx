@@ -30,9 +30,11 @@ export function AppNavbar({
         <div className="flex items-center justify-between h-16">
           {/* Logo and Search */}
           <div className="flex items-center gap-8 flex-1">
-            <Link href="/dashboard" className="text-xl font-bold">
+            {/* <Link href="/dashboard" className="text-xl font-bold">
               TrendZap
-            </Link>
+            </Link> */}
+
+            <img src="/trendzap_logo.png" alt="" />
 
             {/* Search Bar */}
             <div className="hidden md:flex flex-1 max-w-md">

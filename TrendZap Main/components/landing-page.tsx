@@ -53,15 +53,17 @@ export default function LandingPage() {
         <div className="container mx-auto px-4 md:px-6 py-4 flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
-              <Zap className="w-5 h-5 text-white" />
-            </div>
-            <span className="text-xl font-bold gradient-text hidden sm:inline">TrendZap</span>
+            {/* <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
+              {/* <Zap className="w-5 h-5 text-white" /> 
+            </div> */}
+                        <img src="/trendzap_logo.png" alt="" width={120} height={120} />
+
+            {/* <span className="text-xl font-bold gradient-text hidden sm:inline">TrendZap</span> */}
           </div>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-1 bg-white/5 backdrop-blur-md rounded-full px-2 py-1.5 border border-white/10">
-            {["Home", "Explore", "Markets", "Leaderboard"].map((item) => (
+            {["Home", "roadmap"].map((item) => (
               <button
                 key={item}
                 className="px-4 py-2 text-sm font-medium text-foreground/80 hover:text-foreground transition rounded-full hover:bg-white/10"
@@ -94,7 +96,7 @@ export default function LandingPage() {
             {/* Top Badge */}
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-full hover:bg-white/10 transition backdrop-blur-sm">
               <div className="w-2 h-2 rounded-full bg-accent animate-pulse"></div>
-              <p className="text-xs md:text-sm font-medium text-foreground/80">Live on Polygon Network</p>
+              <p className="text-xs md:text-sm font-medium text-foreground/80">Coming Soon</p>
             </div>
 
             {/* Hero Headline */}

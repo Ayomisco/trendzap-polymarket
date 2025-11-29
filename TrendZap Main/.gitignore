@@ -1,4 +1,11 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+node_modules/
+.next/
+dist/
+coverage/
+data/
+.env
+.env.local
+.DS_Store# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
 /node_modules
